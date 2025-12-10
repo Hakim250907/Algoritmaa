@@ -16,6 +16,10 @@ int main() {
     cout << "Jumlah proses: ";
     cin >> n;
 
+    int quantum;
+    cout << "Masukkan quantum Round Robin: ";
+    cin >> quantum;
+
     vector<Process> p(n);
     for (int i = 0; i < n; i++) {
         cout << "\nNama proses : ";
@@ -34,7 +38,6 @@ int main() {
     queue<int> q2; // FCFS
     int time = 0;
     int done = 0;
-    const int quantum = 2;
 
     vector<string> gantt;
     vector<int> ganttStart;
@@ -52,13 +55,13 @@ int main() {
         int current = -1;
         int slot = 0;
 
-        // Jika Queue 1 (RR) ada → jalankan
+        // Queue 1 (RR)
         if (!q1.empty()) {
             current = q1.front();
             q1.pop();
             slot = min(quantum, p[current].rem);
         }
-        // Jika Queue 1 kosong → jalankan Queue 2 FCFS
+        // Queue 2 (FCFS)
         else if (!q2.empty()) {
             current = q2.front();
             q2.pop();
@@ -69,19 +72,19 @@ int main() {
             continue;
         }
 
-        // Simpan Gantt chart
+        // Gantt Chart
         gantt.push_back(p[current].name + "(Q" + to_string(p[current].qlevel) + ")");
         ganttStart.push_back(time);
 
-        // Eksekusi proses untuk "slot" waktu
+        // Eksekusi
         for (int t = 0; t < slot; t++) {
             if (p[current].rt == -1)
-                p[current].rt = time - p[current].at; // Response Time dicatat saat pertama kali running
+                p[current].rt = time - p[current].at;
 
             p[current].rem--;
             time++;
 
-            // Cek jika selama eksekusi ada proses yang datang
+            // Cek proses baru datang
             for (int i = 0; i < n; i++) {
                 if (p[i].at == time) {
                     if (p[i].qlevel == 1) q1.push(i);
@@ -92,21 +95,21 @@ int main() {
             if (p[current].rem == 0) break;
         }
 
-        // Jika selesai
         if (p[current].rem == 0) {
             p[current].ct = time;
             p[current].tat = p[current].ct - p[current].at;
             p[current].wt = p[current].tat - p[current].bt;
             done++;
         }
-        // Jika belum selesai, masukkan kembali ke queue yang sama
         else {
             if (p[current].qlevel == 1) q1.push(current);
             else q2.push(current);
         }
     }
 
-    // =============================== OUTPUT =================================
+    // ==================== OUTPUT =====================
+
+    cout << "\nQuantum yang digunakan (RR): " << quantum << "\n"; // <-- tambahan
 
     cout << "\n\n=== GANTT CHART (MLQ) ===\n";
     for (int i = 0; i < gantt.size(); i++) {
