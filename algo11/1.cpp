@@ -1,18 +1,19 @@
 #include <iostream>
 using namespace std;
 
-int factorial(int n) {
-    if (n == 0 || n == 1) {
-        return 1;
-    } else {
-        return n * factorial(n - 1);
-    }
-}
-
 int main() {
     int n;
-    cout << " masukan n: ";
+    long long hasil = 1;
+
+    cout << "Masukkan n: ";
     cin >> n;
-    cout << "5!=" << factorial(n) << endl;
+
+    // proses faktorial menggunakan looping (iteratif)
+    for (int i = 1; i <= n; i++) {
+        hasil = hasil * i;
+    }
+
+    cout << n << "! = " << hasil << endl;
+
     return 0;
 }

@@ -1,21 +1,24 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-int main (){
-    string namadepan;
-    string namabelakang;
+int main() {
+    string namadepan, namabelakang, namasemua, pilihan;
 
-cout << "=====================================" <<endl;
-cout << "program mengisi nama dan masukan nama" <<endl;
-cout << "=====================================" <<endl;
+    cout << "Masukkan nama depan: ";
+    cin >> namadepan;
 
-cout << "masukan nama depan : " ;
-getline (cin, namadepan);
+    cout << "Masukkan nama belakang: ";
+    cin >> namabelakang;
 
-cout << "masukan nama belakang : ";
-getline (cin, namabelakang);
+    cout << "Ketik untuk gabung nama: ";
+    cin >> pilihan;
 
-cout << "Hakim Nuzul Prasetya" <<endl;
-
-return 0;
+    if (pilihan == "namasemua") {
+        namasemua = namadepan + " " + namabelakang;
+        cout << namasemua << endl;
+    } else {
+        cout << "Nama sebenarnya: " << namadepan << " " << namabelakang << endl;
+    }
+    return 0;
 }
