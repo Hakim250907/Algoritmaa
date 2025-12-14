@@ -2,39 +2,27 @@
 using namespace std;
 
 int main() {
-    int n;
+    int data[5] = {5, 10, 15, 20, 25};
+    int cari;
+    bool ditemukan = false;
 
-    cout << "Masukkan jumlah elemen array: ";
-    cin >> n;
+    cout << "Masukkan angka yang ingin dicari: ";
+    cin >> cari;
 
-    int arr[n];
-    cout << "Masukkan elemen array (urut ascending):\n";
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
-
-    int x;
-    cout << "Masukkan nilai yang ingin dicari: ";
-    cin >> x;
-
-    int i = 0;
-    bool found = false;
-
-    while (i < n) {
-        if (arr[i] == x) {
-            found = true;
+    // Sorted Sequential Search
+    for (int i = 0; i < 5; i++) {
+        if (data[i] == cari) {
+            cout << "Data ditemukan pada indeks ke-" << i << endl;
+            ditemukan = true;
             break;
-        } else if (arr[i] > x) {
-            // karena array ascending, jika lebih besar langsung stop
-            break;
+        } 
+        else if (data[i] > cari) {
+            break; // berhenti lebih cepat
         }
-        i++;
     }
 
-    if (found) {
-        cout << "Elemen ditemukan di indeks: " << i << endl;
-    } else {
-        cout << "Elemen tidak ditemukan" << endl;
+    if (!ditemukan) {
+        cout << "Data tidak ditemukan" << endl;
     }
 
     return 0;

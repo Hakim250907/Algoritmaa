@@ -2,23 +2,33 @@
 using namespace std;
 
 int main() {
-    int arr[5] = {5,10,15,20,25};
-    int size = sizeof(arr) / sizeof(arr[0]);
-    int x;
+    int data[7] = {1, 3, 5, 7, 9, 11, 13};
+    int kiri = 0, kanan = 6, tengah;
+    int cari;
+    bool ditemukan = false;
 
-    // Input angka yang mau dicari
     cout << "Masukkan angka yang ingin dicari: ";
-    cin >> x;
+    cin >> cari;
 
-    int i = 0;
-    while (i < size && arr[i] != x) {
-        i++;
+    // Proses Binary Search
+    while (kiri <= kanan) {
+        tengah = (kiri + kanan) / 2;
+
+        if (data[tengah] == cari) {
+            cout << "Data ditemukan pada indeks ke-" << tengah << endl;
+            ditemukan = true;
+            break;
+        } 
+        else if (data[tengah] < cari) {
+            kiri = tengah + 1;
+        } 
+        else {
+            kanan = tengah - 1;
+        }
     }
 
-    if (i < size) {
-        cout << "Elemen ditemukan di indeks: " << i << endl;
-    } else {
-        cout << "Elemen tidak ditemukan" << endl;
+    if (!ditemukan) {
+        cout << "Data tidak ditemukan" << endl;
     }
 
     return 0;
